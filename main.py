@@ -11,6 +11,7 @@ with open ('books.csv', 'r') as file:
     id_array = []
     tags_array = []
     flag = 0
+    numbers = []
     if state == '1':
         for i in range(cards):
             id_array.append(input('Введите id нужной книги: '))
@@ -46,6 +47,10 @@ with open ('books.csv', 'r') as file:
         if len(row[1]) > 30:
             counter += 1
 
+        if c>0:
+            numbers.append(int(row[8]))
+
+
     print('количество записей в таблице: ', c)
     print('количество записей названий > 30: ', counter)
 
@@ -53,5 +58,17 @@ with open ('books.csv', 'r') as file:
     tags_array.pop(0)
     tags_array.pop(0)
     print(tags_array)
+    numbers.sort(reverse=True)
+
+# доп на топ 20
+with open ('books.csv', 'r') as file:
+    reader = csv.reader(file, delimiter=';')
+    c = -1
+    k = 0
+    for row in reader:
+        c+=1
+        if (c > 0) and (int(row[8]) == numbers[k]) and (k < 20):
+            print(row[1])
+            k+=1
 
 f.close()
