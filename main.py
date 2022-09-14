@@ -60,15 +60,18 @@ with open ('books.csv', 'r') as file:
     print(tags_array)
     numbers.sort(reverse=True)
 
-# доп на топ 20
+# доп на топ 20 без повторов
 with open ('books.csv', 'r') as file:
     reader = csv.reader(file, delimiter=';')
     c = -1
     k = 0
+    books_array=[]
     for row in reader:
         c+=1
-        if (c > 0) and (int(row[8]) == numbers[k]) and (k < 20):
-            print(row[1])
+        book = row[1]
+        if (c > 0) and (int(row[8]) == numbers[k]) and (k < 20) and not(book in books_array):
+            books_array.append(book)
+            print(book)
             k+=1
 
 f.close()
